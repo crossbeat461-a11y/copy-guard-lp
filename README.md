@@ -1,6 +1,6 @@
 # CopyGuard — Landing Page
 
-**CopyGuard**（v1.0.3）の公式ランディングページ（下書き）です。
+**CopyGuard**（v1.0.3）の公式ランディングページです。
 
 - Obsidian Sync 以外（iCloud / Dropbox / Remotely Save / Syncthing）で増える競合コピー・空ファイル・一時ファイルを見つける
 - 選んだ項目だけ隔離フォルダ（既定 `K-Tech Trash Box`）へ移動し、削除は別の確認ステップ（既定は消さない）
@@ -11,7 +11,7 @@
 
 ## ステータス
 
-**下書きです。リポジトリの作成・push はまだ行っていません。** 内容を確認してから、GitHub リポジトリの作成と Vercel デプロイをお願いします。
+公開済みです。GitHub リポジトリを作成・push 済み、Vercel にも https://copy-guard-lp.vercel.app/ でデプロイ済みです。
 
 ## ローカルで見る
 
@@ -22,16 +22,14 @@ python3 -m http.server 8080
 
 ブラウザで http://localhost:8080 を開きます。
 
-## 想定の公開先（未確定・要確認）
+## 公開先
 
 | 項目 | 値 |
 |------|-----|
-| GitHub リポジトリ名（案） | `copy-guard-lp` |
-| Vercel ドメイン（案） | `https://k-tech-copy-guard-lp.vercel.app/` |
+| GitHub リポジトリ | https://github.com/crossbeat461-a11y/copy-guard-lp |
+| Vercel | https://copy-guard-lp.vercel.app/ |
 | GA4 測定 ID | `G-774DT6CW0W`（他 LP と共有） |
 | Search Console 確認ファイル | `google8a8913465dda62dd.html`（他 LP と同一トークン） |
-
-ドメイン・リポジトリ名は他の K-Tech LP の命名規則（`k-tech-<plugin>-lp`）に合わせた案です。実際に確保できるか、他の名前にしたいかを確認してから作成してください。
 
 ## OG 画像
 

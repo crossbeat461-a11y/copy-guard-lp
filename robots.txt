@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://k-tech-copy-guard-lp.vercel.app/sitemap.xml
+Sitemap: https://copy-guard-lp.vercel.app/sitemap.xml
