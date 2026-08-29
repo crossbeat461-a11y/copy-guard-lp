@@ -1,0 +1,56 @@
+# CopyGuard — Landing Page
+
+**CopyGuard**（v1.0.3）の公式ランディングページ（下書き）です。
+
+- Obsidian Sync 以外（iCloud / Dropbox / Remotely Save / Syncthing）で増える競合コピー・空ファイル・一時ファイルを見つける
+- 選んだ項目だけ隔離フォルダ（既定 `K-Tech Trash Box`）へ移動し、削除は別の確認ステップ（既定は消さない）
+- 免責事項を専用セクションで明記（無保証、誤検出の可能性、同期による他端末への影響、マージはしない、バックアップ推奨）
+- 日本語 / English 切り替え、Buy Me a Coffee
+
+このフォルダは静的サイトです（`index.html` 1枚 + 補助ファイル）。フレームワークは使いません。
+
+## ステータス
+
+**下書きです。リポジトリの作成・push はまだ行っていません。** 内容を確認してから、GitHub リポジトリの作成と Vercel デプロイをお願いします。
+
+## ローカルで見る
+
+```bash
+cd "/Users/kimurashigeru/Documents/github/k-Tech CopyGuard_LP"
+python3 -m http.server 8080
+```
+
+ブラウザで http://localhost:8080 を開きます。
+
+## 想定の公開先（未確定・要確認）
+
+| 項目 | 値 |
+|------|-----|
+| GitHub リポジトリ名（案） | `copy-guard-lp` |
+| Vercel ドメイン（案） | `https://k-tech-copy-guard-lp.vercel.app/` |
+| GA4 測定 ID | `G-774DT6CW0W`（他 LP と共有） |
+| Search Console 確認ファイル | `google8a8913465dda62dd.html`（他 LP と同一トークン） |
+
+ドメイン・リポジトリ名は他の K-Tech LP の命名規則（`k-tech-<plugin>-lp`）に合わせた案です。実際に確保できるか、他の名前にしたいかを確認してから作成してください。
+
+## OG 画像
+
+`og.svg` を用意しています（1200×630 相当のベクター）。SNS カードの互換性を上げたい場合は、これを元に `og.png` を書き出して `index.html` の `og:image` / `twitter:image` を差し替えてください（`k-tech-update-guard-lp` の `og.png` と同じ手順）。
+
+## バージョンを上げるとき
+
+`index.html` の現在の版番号を置換:
+
+- `<title>` と meta / JSON-LD
+- ヒーローの `#version-badge`
+- フッター
+- `#changelog` の先頭に `.release` を追加（`latest` クラスを新しい方へ）
+
+`og.svg` と `sitemap.xml` の日付も必要なら更新します。
+
+## リンク
+
+- プラグイン本体: https://github.com/crossbeat461-a11y/copy-guard
+- Releases: https://github.com/crossbeat461-a11y/copy-guard/releases/latest
+- K-Tech Studio: https://k-tech-lab.vercel.app/
+- Buy Me a Coffee: https://buymeacoffee.com/k_tech_studio

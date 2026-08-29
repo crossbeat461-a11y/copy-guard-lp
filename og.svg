@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a1525"/>
+      <stop offset="100%" stop-color="#131018"/>
+    </linearGradient>
+    <linearGradient id="back" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#a78bfa"/>
+      <stop offset="100%" stop-color="#5b21b6"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="980" cy="-40" r="280" fill="#7c3aed" fill-opacity="0.22"/>
+  <g transform="translate(120,175)">
+    <rect x="4" y="12" width="120" height="156" rx="14" fill="url(#back)"/>
+    <rect x="34" y="34" width="120" height="156" rx="14" fill="#ecfdf5" stroke="#10b981" stroke-width="4"/>
+    <path d="M62 110 L84 132 L128 82" fill="none" stroke="#047857" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="340" y="250" fill="#e9d5ff" font-family="Inter, Noto Sans JP, sans-serif" font-size="28" font-weight="700">K-Tech Studio</text>
+  <text x="340" y="330" fill="#ffffff" font-family="Inter, Noto Sans JP, sans-serif" font-size="60" font-weight="800">CopyGuard</text>
+  <text x="340" y="400" fill="#c4b5fd" font-family="Inter, Noto Sans JP, sans-serif" font-size="30">Review sync clutter, then clean it up yourself.</text>
+  <text x="340" y="470" fill="#94a3b8" font-family="Inter, Noto Sans JP, sans-serif" font-size="24">v1.0.3 · MIT · iCloud / Dropbox / Remotely Save / Syncthing</text>
+</svg>

@@ -1,0 +1,1565 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-774DT6CW0W"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-774DT6CW0W');
+    </script>
+    <script>
+      document.addEventListener('click', function (e) {
+        var link = e.target.closest('a');
+        if (!link || !link.href) return;
+        var href = link.href;
+        var eventName = null;
+        var linkType = null;
+        if (href.indexOf('buymeacoffee.com') !== -1) {
+          eventName = 'click_bmc';
+          linkType = 'bmc';
+        } else if (href.indexOf('/releases') !== -1) {
+          eventName = 'click_release';
+          linkType = 'release';
+        } else if (href.indexOf('github.com') !== -1) {
+          eventName = 'click_github';
+          linkType = 'github';
+        } else if (href.indexOf('obsidian.md/plugins') !== -1) {
+          eventName = 'click_community';
+          linkType = 'community';
+        }
+        if (!eventName) return;
+        gtag('event', eventName, {
+          link_url: href,
+          link_text: (link.textContent || '').trim().slice(0, 100),
+          link_type: linkType
+        });
+      });
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CopyGuard v1.0.3 | 競合コピーとクラッシュ後の一時ファイルを、確認してから片づける Obsidian プラグイン</title>
+    <meta name="description" content="CopyGuard は Obsidian 用の整理プラグイン。iCloud・Dropbox・Remotely Save・Syncthing など Obsidian Sync 以外の同期で増える競合コピー・空ファイル・一時ファイルを見つけ、選んだものだけ隔離フォルダへ移します。削除は別の確認ステップ、既定は削除ミスをおこさない。無料・MIT。">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="author" content="K-Tech Studio">
+    <meta name="theme-color" content="#7c3aed">
+    <link rel="canonical" href="https://k-tech-copy-guard-lp.vercel.app/">
+    <link rel="alternate" hreflang="ja" href="https://k-tech-copy-guard-lp.vercel.app/">
+    <link rel="alternate" hreflang="en" href="https://k-tech-copy-guard-lp.vercel.app/">
+    <link rel="alternate" hreflang="x-default" href="https://k-tech-copy-guard-lp.vercel.app/">
+    <link rel="sitemap" type="application/xml" href="https://k-tech-copy-guard-lp.vercel.app/sitemap.xml">
+    <meta property="og:site_name" content="K-Tech Studio">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="CopyGuard v1.0.3 | Review sync clutter, then clean it up yourself">
+    <meta property="og:description" content="Finds sync-conflict copies, empty files, and leftover temp files from iCloud / Dropbox / Remotely Save / Syncthing. Moves only what you approve. Deleting is a separate, confirmed step built to avoid delete mistakes.">
+    <meta property="og:url" content="https://k-tech-copy-guard-lp.vercel.app/">
+    <meta property="og:image" content="https://k-tech-copy-guard-lp.vercel.app/og.svg">
+    <meta property="og:image:type" content="image/svg+xml">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="CopyGuard — Review sync clutter, then clean it up yourself.">
+    <meta property="og:locale" content="ja_JP">
+    <meta property="og:locale:alternate" content="en_US">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@K_Tech_Dev">
+    <meta name="twitter:title" content="CopyGuard v1.0.3 | Review sync clutter, then clean it up yourself">
+    <meta name="twitter:description" content="Finds sync-conflict copies, empty files, and temp files from iCloud / Dropbox / Remotely Save / Syncthing. You review, then decide. Free &amp; MIT.">
+    <meta name="twitter:image" content="https://k-tech-copy-guard-lp.vercel.app/og.svg">
+    <meta name="twitter:image:alt" content="CopyGuard — Review sync clutter, then clean it up yourself.">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://k-tech-lab.vercel.app/#organization",
+          "name": "K-Tech Studio",
+          "url": "https://k-tech-lab.vercel.app/",
+          "sameAs": ["https://github.com/crossbeat461-a11y", "https://x.com/K_Tech_Dev", "https://note.com/ktech_dev"]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://k-tech-copy-guard-lp.vercel.app/#website",
+          "url": "https://k-tech-copy-guard-lp.vercel.app/",
+          "name": "CopyGuard",
+          "inLanguage": "ja",
+          "publisher": { "@id": "https://k-tech-lab.vercel.app/#organization" }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://k-tech-copy-guard-lp.vercel.app/#app",
+          "name": "CopyGuard",
+          "url": "https://k-tech-copy-guard-lp.vercel.app/",
+          "image": "https://k-tech-copy-guard-lp.vercel.app/og.svg",
+          "description": "Obsidian plugin that finds sync-conflict copies, empty files, and leftover temp files from non-Sync backends (iCloud, Dropbox, Remotely Save, Syncthing), then moves only approved items into a quarantine folder before an optional, confirmed delete.",
+          "applicationCategory": "UtilitiesApplication",
+          "operatingSystem": "Obsidian",
+          "softwareVersion": "1.0.3",
+          "datePublished": "2026-08-29",
+          "dateModified": "2026-08-29",
+          "isAccessibleForFree": true,
+          "license": "https://github.com/crossbeat461-a11y/copy-guard/blob/main/LICENSE",
+          "downloadUrl": "https://github.com/crossbeat461-a11y/copy-guard/releases/latest",
+          "installUrl": "https://k-tech-copy-guard-lp.vercel.app/#install",
+          "keywords": "Obsidian, sync conflict copy, conflicted copy, iCloud, Dropbox, Remotely Save, Syncthing, vault cleanup",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY", "availability": "https://schema.org/InStock" },
+          "author": { "@id": "https://k-tech-lab.vercel.app/#organization" }
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://k-tech-copy-guard-lp.vercel.app/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "CopyGuard は何をするツールですか？",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "同期でできた競合コピー、空ファイル、一時・破損ファイルを見つけ、あなたが選んだ項目だけを隔離フォルダ（既定は K-Tech Trash Box）に移します。削除はその後の別ステップで、既定は削除ミスをおこさないです。"
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "内容を自動でマージ（結合）してくれますか？",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "いいえ。内容の比較や結合はしません。競合コピーの中身を見て、どちらを残すかはご自身で判断してください。"
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "勝手にファイルを削除しませんか？",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "しません。移動は選択した項目だけ、削除は隔離フォルダに対する別の確認ダイアログでのみ行われ、既定は「削除ミスをおこさない」です。"
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Obsidian Sync を使っていなくても平気ですか？",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "はい。むしろ iCloud・Dropbox・Remotely Save・Syncthing など、公式 Sync のマージ機能を持たない同期方法を使っている方のために作られています。"
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%237c3aed'/><rect x='24' y='22' width='40' height='52' rx='6' fill='%23ede9fe'/><rect x='36' y='34' width='40' height='52' rx='6' fill='%23a78bfa' stroke='%235b21b6' stroke-width='3'/></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --obs-purple: #7c3aed;
+            --obs-purple-light: #a78bfa;
+            --obs-purple-dark: #5b21b6;
+            --guard: #10b981;
+            --conflict: #e07b39;
+            --empty: #3b82c4;
+            --temp: #c0392b;
+            --obs-bg: #1e1e1e;
+            --obs-bg-secondary: #262626;
+            --obs-bg-tertiary: #2d2d2d;
+            --obs-border: #3d3d3d;
+            --obs-text: #dcddde;
+            --obs-text-muted: #999;
+            --page-bg: #131018;
+            --page-bg-soft: #1a1525;
+            --card: #ffffff;
+            --text: #1a1a2e;
+            --text-muted: #64748b;
+            --bmc-yellow: #ffdd00;
+            --shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: "Inter", "Noto Sans JP", "Hiragino Sans", "BIZ UDPGothic", sans-serif;
+            background: var(--page-bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .site-mark {
+            position: fixed;
+            top: 16px;
+            left: 16px;
+            z-index: 110;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: #f4f0ff;
+            font-weight: 700;
+            font-size: 0.82rem;
+            letter-spacing: 0.01em;
+        }
+        .site-mark-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 28px;
+            padding: 0 7px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            font-size: 0.72rem;
+            letter-spacing: -0.04em;
+        }
+        .site-mark:hover { opacity: 0.85; }
+        @media (max-width: 640px) {
+            .site-mark-name { display: none; }
+        }
+
+        .lang-switch {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 100;
+            display: flex;
+            gap: 4px;
+            background: rgba(30, 30, 30, 0.92);
+            padding: 4px;
+            border-radius: 999px;
+            border: 1px solid var(--obs-border);
+            backdrop-filter: blur(8px);
+        }
+
+        .lang-btn {
+            border: none;
+            background: none;
+            color: var(--obs-text-muted);
+            padding: 8px 14px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 0.75rem;
+            cursor: pointer;
+        }
+
+        .lang-btn.active {
+            background: var(--obs-purple);
+            color: #fff;
+        }
+
+        .lang-en { display: none; }
+        html[lang="en"] .lang-ja { display: none; }
+        html[lang="en"] .lang-en { display: block; }
+        html[lang="en"] span.lang-en { display: inline; }
+        html[lang="ja"] span.lang-en { display: none; }
+        html[lang="en"] span.lang-ja { display: none; }
+        span.lang-ja, span.lang-en { display: inline; }
+
+        .hero {
+            padding: 88px 0 64px;
+            background:
+                radial-gradient(ellipse 80% 60% at 50% -10%, rgba(124, 58, 237, 0.45), transparent),
+                linear-gradient(180deg, var(--page-bg-soft) 0%, var(--page-bg) 100%);
+            color: #fff;
+            text-align: center;
+        }
+
+        .plugin-badge-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+        }
+
+        .badge-obsidian {
+            background: rgba(124, 58, 237, 0.25);
+            border: 1px solid rgba(167, 139, 250, 0.45);
+            color: #e9d5ff;
+        }
+
+        .badge-version {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #d1d5db;
+        }
+
+        .badge-guard {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(52, 211, 153, 0.35);
+            color: #a7f3d0;
+        }
+
+        .badge-bmc {
+            background: rgba(255, 221, 0, 0.14);
+            border: 1px solid rgba(255, 221, 0, 0.4);
+            color: #fde68a;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.25rem);
+            margin: 0 0 16px;
+            line-height: 1.3;
+            letter-spacing: -0.03em;
+        }
+
+        .hero h1 .purple { color: var(--obs-purple-light); }
+
+        .hero .lead {
+            max-width: 680px;
+            margin: 0 auto 32px;
+            font-size: 1.1rem;
+            color: #c4b5fd;
+            opacity: 0.95;
+        }
+
+        .hero-cta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--obs-purple) 0%, var(--obs-purple-dark) 100%);
+            color: #fff;
+            box-shadow: 0 8px 28px rgba(124, 58, 237, 0.45);
+        }
+
+        .btn-primary:hover { transform: translateY(-2px); }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.06);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--obs-purple-light);
+            color: var(--obs-purple-light);
+        }
+
+        .btn-coffee {
+            background: var(--bmc-yellow);
+            color: #111;
+        }
+
+        .btn-coffee:hover { transform: translateY(-2px); }
+
+        .obsidian-window {
+            margin: 48px auto 0;
+            max-width: 920px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--obs-border);
+            text-align: left;
+        }
+
+        .obs-titlebar {
+            background: #2b2b2b;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid var(--obs-border);
+        }
+
+        .obs-dot { width: 10px; height: 10px; border-radius: 50%; }
+        .obs-dot.red { background: #ff5f57; }
+        .obs-dot.yellow { background: #febc2e; }
+        .obs-dot.green { background: #28c840; }
+
+        .obs-titlebar span {
+            flex: 1;
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--obs-text-muted);
+        }
+
+        .obs-body {
+            display: grid;
+            grid-template-columns: 56px 1fr;
+            min-height: 380px;
+            background: var(--obs-bg);
+        }
+
+        .obs-ribbon {
+            background: #1a1a1a;
+            border-right: 1px solid var(--obs-border);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 12px 0;
+            gap: 10px;
+        }
+
+        .ribbon-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: rgba(124, 58, 237, 0.2);
+            color: #c4b5fd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+        }
+
+        .ribbon-icon.active {
+            background: rgba(16, 185, 129, 0.22);
+            color: #a7f3d0;
+            box-shadow: 0 0 0 1px rgba(52, 211, 153, 0.4);
+        }
+
+        .obs-main {
+            position: relative;
+            padding: 24px 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-card {
+            width: min(100%, 460px);
+            background: var(--obs-bg-secondary);
+            border: 1px solid var(--obs-border);
+            border-radius: 12px;
+            padding: 18px 18px 14px;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+        }
+
+        .modal-card h3 {
+            margin: 0 0 6px;
+            color: #e9d5ff;
+            font-size: 1.02rem;
+        }
+
+        .modal-card .modal-lead {
+            margin: 0 0 12px;
+            color: var(--obs-text-muted);
+            font-size: 0.78rem;
+        }
+
+        .scan-group-title {
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--obs-text-muted);
+            margin: 10px 0 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .scan-group-title:first-of-type { margin-top: 0; }
+
+        .scan-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            padding: 7px 8px;
+            border-radius: 8px;
+            background: var(--obs-bg-tertiary);
+            margin-bottom: 6px;
+            color: var(--obs-text);
+            font-size: 0.8rem;
+        }
+
+        .scan-row input { margin-top: 2px; accent-color: var(--obs-purple); }
+
+        .scan-row-main { flex: 1; min-width: 0; }
+
+        .scan-row-path {
+            font-family: "SFMono-Regular", Consolas, monospace;
+            font-size: 0.78rem;
+            word-break: break-all;
+        }
+
+        .scan-badge {
+            display: inline-block;
+            font-size: 0.62rem;
+            font-weight: 700;
+            padding: 1px 7px;
+            border-radius: 0.8em;
+            margin-right: 6px;
+            color: #fff;
+            vertical-align: 1px;
+        }
+
+        .scan-badge.conflict { background: var(--conflict); }
+        .scan-badge.empty { background: var(--empty); }
+        .scan-badge.temp { background: var(--temp); }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .modal-btn {
+            border: none;
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            cursor: default;
+        }
+
+        .modal-btn.ghost {
+            background: transparent;
+            color: var(--obs-text-muted);
+        }
+
+        .modal-btn.cta {
+            background: var(--guard);
+            color: #06281d;
+        }
+
+        .status-chip {
+            position: absolute;
+            right: 14px;
+            bottom: 12px;
+            font-size: 0.72rem;
+            color: #a7f3d0;
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid rgba(52, 211, 153, 0.3);
+            border-radius: 999px;
+            padding: 4px 10px;
+        }
+
+        .section-light {
+            padding: 72px 0;
+            background: #faf8ff;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            color: var(--obs-purple-dark);
+            margin: 0 0 12px;
+        }
+
+        .section-sub {
+            text-align: center;
+            color: var(--text-muted);
+            max-width: 640px;
+            margin: 0 auto 40px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid #ede9fe;
+            box-shadow: 0 4px 20px rgba(124, 58, 237, 0.08);
+        }
+
+        .feature-card .icon { font-size: 1.75rem; margin-bottom: 10px; }
+
+        .feature-card h3 {
+            margin: 0 0 8px;
+            font-size: 1.05rem;
+            color: var(--obs-purple-dark);
+        }
+
+        .feature-card p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .flow {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .flow-step {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 20px 16px;
+            text-align: center;
+            border: 1px solid #ede9fe;
+        }
+
+        .flow-num {
+            display: inline-flex;
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--obs-purple), var(--obs-purple-dark));
+            color: #fff;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .flow-step h3 {
+            margin: 0 0 6px;
+            font-size: 0.98rem;
+            color: var(--text);
+        }
+
+        .flow-step p {
+            margin: 0;
+            font-size: 0.84rem;
+            color: var(--text-muted);
+        }
+
+        .scope-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 820px;
+            margin: 0 auto;
+        }
+
+        .scope-card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid #ede9fe;
+        }
+
+        .scope-card.fix { border-top: 4px solid #10b981; }
+        .scope-card.nofix { border-top: 4px solid #f59e0b; }
+
+        .scope-card h3 { margin: 0 0 12px; font-size: 1.05rem; }
+        .scope-card.fix h3 { color: #047857; }
+        .scope-card.nofix h3 { color: #b45309; }
+
+        .scope-card ul {
+            margin: 0;
+            padding-left: 20px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .scope-card li { margin-bottom: 6px; }
+
+        .disclaimer-section {
+            padding: 64px 0;
+            background: #1a1409;
+        }
+
+        .disclaimer-box {
+            max-width: 760px;
+            margin: 0 auto;
+            background: #2a1c0d;
+            border: 1px solid #7c4a12;
+            border-radius: 18px;
+            padding: 32px 32px 28px;
+        }
+
+        .disclaimer-box h2 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 0 16px;
+            color: #fbbf24;
+            font-size: 1.3rem;
+        }
+
+        .disclaimer-box ul {
+            margin: 0 0 18px;
+            padding-left: 22px;
+            color: #fde9c8;
+            font-size: 0.94rem;
+        }
+
+        .disclaimer-box li { margin-bottom: 10px; }
+        .disclaimer-box li strong { color: #fff3d6; }
+
+        .disclaimer-box .license-note {
+            margin: 0;
+            font-size: 0.84rem;
+            color: #c9a877;
+        }
+
+        .disclaimer-box .license-note a { color: #fbbf24; }
+
+        .settings-table-wrap {
+            max-width: 760px;
+            margin: 0 auto;
+            overflow-x: auto;
+        }
+
+        table.settings {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--card);
+            border-radius: 12px;
+            overflow: hidden;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 20px rgba(124, 58, 237, 0.08);
+        }
+
+        table.settings th {
+            background: var(--obs-purple-dark);
+            color: #fff;
+            text-align: left;
+            padding: 12px 16px;
+            font-size: 0.85rem;
+        }
+
+        table.settings td {
+            padding: 11px 16px;
+            border-bottom: 1px solid #f1edfb;
+            color: var(--text-muted);
+        }
+
+        table.settings td:first-child {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        table.settings code {
+            background: #f3e8ff;
+            color: var(--obs-purple-dark);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85em;
+        }
+
+        .steps {
+            display: grid;
+            gap: 16px;
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        .step {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            background: var(--card);
+            padding: 20px 22px;
+            border-radius: 14px;
+            border: 1px solid #ede9fe;
+        }
+
+        .step-num {
+            flex-shrink: 0;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--obs-purple), var(--obs-purple-dark));
+            color: #fff;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.95rem;
+        }
+
+        .step h3 {
+            margin: 0 0 4px;
+            font-size: 1rem;
+            color: var(--text);
+        }
+
+        .step p {
+            margin: 0;
+            font-size: 0.88rem;
+            color: var(--text-muted);
+        }
+
+        .step code {
+            background: #f3e8ff;
+            color: var(--obs-purple-dark);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85em;
+        }
+
+        .note-box {
+            max-width: 680px;
+            margin: 24px auto 0;
+            background: #fff7ed;
+            border: 1px solid #fed7aa;
+            color: #9a3412;
+            border-radius: 12px;
+            padding: 14px 16px;
+            font-size: 0.88rem;
+        }
+
+        .changelog {
+            max-width: 640px;
+            margin: 0 auto;
+        }
+
+        .release {
+            display: flex;
+            gap: 16px;
+            padding: 18px 0;
+            border-bottom: 1px solid #ede9fe;
+        }
+
+        .release:last-child { border-bottom: none; }
+
+        .release-tag {
+            flex-shrink: 0;
+            align-self: flex-start;
+            background: #f3e8ff;
+            color: var(--obs-purple-dark);
+            font-weight: 800;
+            font-size: 0.82rem;
+            padding: 4px 12px;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+
+        .release-tag.latest {
+            background: linear-gradient(135deg, var(--obs-purple), var(--obs-purple-dark));
+            color: #fff;
+        }
+
+        .release-body h3 {
+            margin: 0 0 4px;
+            font-size: 0.98rem;
+            color: var(--text);
+        }
+
+        .release-body p {
+            margin: 0;
+            font-size: 0.88rem;
+            color: var(--text-muted);
+        }
+
+        .release-date {
+            font-size: 0.78rem;
+            color: #a78bfa;
+            font-weight: 600;
+        }
+
+        .coffee-section {
+            padding: 72px 0;
+            background: linear-gradient(180deg, #0f0d14 0%, var(--page-bg) 100%);
+            text-align: center;
+            color: #e5e7eb;
+        }
+
+        .coffee-section h2 {
+            font-size: clamp(1.4rem, 3vw, 1.9rem);
+            margin: 0 0 12px;
+            color: #fff;
+        }
+
+        .coffee-section p {
+            max-width: 560px;
+            margin: 0 auto 28px;
+            color: #94a3b8;
+            font-size: 0.95rem;
+        }
+
+        .bmc-img { height: 56px; width: auto; }
+
+        footer {
+            padding: 56px 0 80px;
+            text-align: center;
+            background: #0c0814;
+            border-top: 1px solid rgba(167, 139, 250, 0.14);
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 14px 22px;
+            margin-bottom: 18px;
+        }
+
+        .footer-links a {
+            color: var(--obs-purple-light);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.88rem;
+        }
+
+        .footer-links a:hover { color: #c4b5fd; }
+
+        .footer-copy {
+            color: #b8b0c8;
+            font-size: 0.85rem;
+            margin: 0 0 16px;
+        }
+
+        .footer-meta {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .btn-inline-text {
+            background: none;
+            border: none;
+            color: #b8b0c8;
+            text-decoration: underline;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        #policy-box {
+            display: none;
+            text-align: left;
+            background: var(--card);
+            color: var(--text);
+            padding: 40px;
+            border-radius: 20px;
+            margin: 30px auto 0;
+            max-width: 800px;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+        }
+
+        #policy-box h3 {
+            color: var(--obs-purple-dark);
+            border-bottom: 2px solid var(--obs-purple-light);
+            padding-bottom: 10px;
+            margin: 0 0 25px;
+        }
+
+        .policy-content h4 {
+            color: var(--obs-purple-dark);
+            margin: 20px 0 10px;
+            border-left: 4px solid var(--obs-purple-light);
+            padding-left: 10px;
+        }
+
+        .policy-content p {
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            color: var(--text-muted);
+        }
+
+        .policy-close {
+            background: var(--obs-purple);
+            color: #fff;
+            border: none;
+            padding: 12px 35px;
+            cursor: pointer;
+            border-radius: 25px;
+            font-weight: 600;
+        }
+
+        @media (max-width: 720px) {
+            .flow { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 640px) {
+            .obs-body { grid-template-columns: 1fr; }
+            .obs-ribbon, .status-chip { display: none; }
+            .flow { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <a class="site-mark" href="https://k-tech-lab.vercel.app/" target="_blank" rel="noopener noreferrer">
+        <span class="site-mark-badge">{K}</span>
+        <span class="site-mark-name">K-Tech Studio</span>
+    </a>
+
+    <div class="lang-switch" role="group" aria-label="Language">
+        <button type="button" class="lang-btn active" data-lang="ja">日本語</button>
+        <button type="button" class="lang-btn" data-lang="en">English</button>
+    </div>
+
+    <header class="hero">
+        <div class="container">
+            <div class="plugin-badge-row">
+                <span class="badge badge-obsidian">K-Tech Studio</span>
+                <span class="badge badge-version" id="version-badge">v1.0.3</span>
+                <span class="badge badge-guard">
+                    <span class="lang-ja">確認してから削除</span>
+                    <span class="lang-en">Review, then delete</span>
+                </span>
+                <span class="badge badge-bmc">☕ Buy Me a Coffee</span>
+            </div>
+
+            <h1>
+                <span class="lang-ja">増えた<span class="purple">競合コピー</span>を、確認してから片づける</span>
+                <span class="lang-en">Sync clutter, <span class="purple">reviewed</span> before you delete it</span>
+            </h1>
+
+            <p class="lead lang-ja">CopyGuard は、iCloud・Dropbox・Remotely Save・Syncthing など、Obsidian Sync 以外の方法で同期しているときに増える「競合コピー」「空ファイル」「一時・破損ファイル」を見つける整理プラグインです。見つけた項目は、選んだものだけ隔離フォルダへ移すだけ。削除は別の確認ステップで、既定は「削除ミスをおこさない」です。無料（MIT）。</p>
+            <p class="lead lang-en">CopyGuard is a tidy-up plugin for vaults synced with iCloud, Dropbox, Remotely Save, or Syncthing — the setups without Obsidian Sync's built-in conflict merging. It finds sync-conflict copies, empty files, and leftover temp files, then moves only what you approve into a quarantine folder. Deleting is a separate, confirmed step built to avoid delete mistakes. Free &amp; MIT.</p>
+
+            <div class="hero-cta">
+                <a href="https://github.com/crossbeat461-a11y/copy-guard/releases/latest" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                    <span class="lang-ja">GitHub Releases からインストールする</span>
+                    <span class="lang-en">Get it from GitHub Releases</span>
+                </a>
+                <a href="https://github.com/crossbeat461-a11y/copy-guard" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">GitHub</a>
+                <a href="https://buymeacoffee.com/k_tech_studio" target="_blank" rel="noopener noreferrer" class="btn btn-coffee">☕ Buy Me a Coffee</a>
+            </div>
+
+            <div class="obsidian-window" aria-hidden="true">
+                <div class="obs-titlebar">
+                    <span class="obs-dot red"></span>
+                    <span class="obs-dot yellow"></span>
+                    <span class="obs-dot green"></span>
+                    <span>Vault — CopyGuard</span>
+                </div>
+                <div class="obs-body">
+                    <aside class="obs-ribbon">
+                        <div class="ribbon-icon">⌘</div>
+                        <div class="ribbon-icon">⌘</div>
+                        <div class="ribbon-icon active">⧉</div>
+                    </aside>
+                    <div class="obs-main">
+                        <div class="modal-card">
+                            <h3>
+                                <span class="lang-ja">3 件見つかりました</span>
+                                <span class="lang-en">3 items found</span>
+                            </h3>
+                            <p class="modal-lead">
+                                <span class="lang-ja">移動する項目にチェックを付けてください。削除はまだ行いません。</span>
+                                <span class="lang-en">Tick what to move. Nothing is deleted yet.</span>
+                            </p>
+
+                            <div class="scan-group-title">
+                                <span class="lang-ja">競合コピー</span>
+                                <span class="lang-en">Conflict copies</span>
+                            </div>
+                            <label class="scan-row">
+                                <input type="checkbox" checked disabled>
+                                <span class="scan-row-main">
+                                    <span class="scan-badge conflict lang-ja">競合</span>
+                                    <span class="scan-badge conflict lang-en">Conflict</span>
+                                    <span class="scan-row-path">議事録 (conflicted copy 2026-08-20).md</span>
+                                </span>
+                            </label>
+
+                            <div class="scan-group-title">
+                                <span class="lang-ja">空ファイル</span>
+                                <span class="lang-en">Empty files</span>
+                            </div>
+                            <label class="scan-row">
+                                <input type="checkbox" checked disabled>
+                                <span class="scan-row-main">
+                                    <span class="scan-badge empty lang-ja">空</span>
+                                    <span class="scan-badge empty lang-en">Empty</span>
+                                    <span class="scan-row-path">Untitled.md — 0 KB</span>
+                                </span>
+                            </label>
+
+                            <div class="scan-group-title">
+                                <span class="lang-ja">一時ファイル</span>
+                                <span class="lang-en">Temp files</span>
+                            </div>
+                            <label class="scan-row">
+                                <input type="checkbox" disabled>
+                                <span class="scan-row-main">
+                                    <span class="scan-badge temp lang-ja">一時</span>
+                                    <span class="scan-badge temp lang-en">Temp</span>
+                                    <span class="scan-row-path">~$予算表.xlsx</span>
+                                </span>
+                            </label>
+
+                            <div class="modal-actions">
+                                <span class="modal-btn ghost">
+                                    <span class="lang-ja">すべて選択</span>
+                                    <span class="lang-en">Select all</span>
+                                </span>
+                                <span class="modal-btn cta">
+                                    <span class="lang-ja">選択した項目を移動</span>
+                                    <span class="lang-en">Move selected</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="status-chip">
+                            <span class="lang-ja">リボン：CopyGuardを開く</span>
+                            <span class="lang-en">Ribbon: Open CopyGuard</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="section-light" style="background: #fff;">
+        <div class="container">
+            <h2 class="section-title lang-ja">こんな悩み、ありませんか</h2>
+            <h2 class="section-title lang-en">Sound familiar?</h2>
+            <p class="section-sub lang-ja">Obsidian Sync ではない同期方法だからこそ起きる、地味に困る話です。</p>
+            <p class="section-sub lang-en">The quiet, everyday friction of syncing a vault without Obsidian Sync.</p>
+
+            <div class="feature-grid">
+                <article class="feature-card">
+                    <span class="icon">🌀</span>
+                    <h3 class="lang-ja">「(競合コピー)」が同期のたびに増える</h3>
+                    <h3 class="lang-en">“(conflicted copy)” keeps showing up</h3>
+                    <p class="lang-ja">iCloud や Remotely Save は、タイミングが悪いと同じ内容の別ファイルを隣に作ります。</p>
+                    <p class="lang-en">iCloud and Remotely Save can create a duplicate file right next to the original when timing is off.</p>
+                </article>
+                <article class="feature-card">
+                    <span class="icon">🤷</span>
+                    <h3 class="lang-ja">何を消していいか分からない</h3>
+                    <h3 class="lang-en">Not sure what's safe to delete</h3>
+                    <p class="lang-ja">大事な版をうっかり消すのが怖くて、結局そのまま溜め込んでしまう。</p>
+                    <p class="lang-en">Afraid of losing the wrong version, so the clutter just piles up instead.</p>
+                </article>
+                <article class="feature-card">
+                    <span class="icon">💥</span>
+                    <h3 class="lang-ja">クラッシュ後の一時ファイルが残る</h3>
+                    <h3 class="lang-en">Leftover files after a crash</h3>
+                    <p class="lang-ja">アプリやOSが落ちたあとの <code>.tmp</code> や <code>~</code> 付きファイルが Vault に散らばる。</p>
+                    <p class="lang-en"><code>.tmp</code> files and stray <code>~</code> files scatter across the vault after an app or OS crash.</p>
+                </article>
+                <article class="feature-card">
+                    <span class="icon">🔀</span>
+                    <h3 class="lang-ja">Obsidian Sync は使っていない</h3>
+                    <h3 class="lang-en">Not on Obsidian Sync</h3>
+                    <p class="lang-ja">公式 Sync のマージ機能がないぶん、他の同期方法では自分で片づける仕組みが必要になります。</p>
+                    <p class="lang-en">Without official Sync's built-in merge handling, other sync setups need a manual way to clean things up.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-light">
+        <div class="container">
+            <h2 class="section-title lang-ja">使い方は4ステップ</h2>
+            <h2 class="section-title lang-en">Four steps</h2>
+            <p class="section-sub lang-ja">全部まとめて消したりしません。見て、選んで、それから動かします。</p>
+            <p class="section-sub lang-en">Nothing is deleted in bulk. You look, you choose, then it moves.</p>
+
+            <div class="flow">
+                <article class="flow-step">
+                    <span class="flow-num">1</span>
+                    <h3 class="lang-ja">スキャン</h3>
+                    <h3 class="lang-en">Scan</h3>
+                    <p class="lang-ja">リボンの ⧉ アイコン、またはコマンド「Open CopyGuard」。</p>
+                    <p class="lang-en">Click the ribbon icon, or run the Open CopyGuard command.</p>
+                </article>
+                <article class="flow-step">
+                    <span class="flow-num">2</span>
+                    <h3 class="lang-ja">グループで確認</h3>
+                    <h3 class="lang-en">Review by group</h3>
+                    <p class="lang-ja">競合コピー・空ファイル・一時ファイルに分けて一覧表示します。</p>
+                    <p class="lang-en">Conflict copies, empty files, and temp files are listed separately with badges.</p>
+                </article>
+                <article class="flow-step">
+                    <span class="flow-num">3</span>
+                    <h3 class="lang-ja">選んだものだけ移動</h3>
+                    <h3 class="lang-en">Move only what you choose</h3>
+                    <p class="lang-ja">チェックした項目だけ <code>K-Tech Trash Box</code> へ（名前は変更可能）。</p>
+                    <p class="lang-en">Only ticked items move into <code>K-Tech Trash Box</code> (the name is configurable).</p>
+                </article>
+                <article class="flow-step">
+                    <span class="flow-num">4</span>
+                    <h3 class="lang-ja">確認してから削除</h3>
+                    <h3 class="lang-en">Confirm, then delete</h3>
+                    <p class="lang-ja">起動時、箱に中身があるときだけ確認します。既定は「削除ミスをおこさない」。</p>
+                    <p class="lang-en">On startup, if the box has files, you're asked. The default is built to avoid delete mistakes.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-light" style="background: #fff;">
+        <div class="container">
+            <h2 class="section-title lang-ja">できること</h2>
+            <h2 class="section-title lang-en">Features</h2>
+            <p class="section-sub lang-ja">「自動でまとめて消す」道具ではなく、「見てから自分で決める」ための道具です。</p>
+            <p class="section-sub lang-en">Not an auto-cleaner. A tool built for you to review, then decide.</p>
+
+            <div class="feature-grid">
+                <article class="feature-card">
+                    <span class="icon">🔍</span>
+                    <h3 class="lang-ja">同じフォルダの原本だけ対象</h3>
+                    <h3 class="lang-en">Only pairs with a nearby original</h3>
+                    <p class="lang-ja">元ファイルが同じフォルダにある場合だけ、競合コピーとみなします。</p>
+                    <p class="lang-en">A file only counts as a conflict copy when the original sits in the same folder.</p>
+                </article>
+                <article class="feature-card">
+                    <span class="icon">🔢</span>
+                    <h3 class="lang-ja">番号違いの重複は既定オフ</h3>
+                    <h3 class="lang-en">Numbered duplicates stay off by default</h3>
+                    <p class="lang-ja">「Note 2.md」のような名前は本人の題と区別しづらいため、初期設定では対象外です。</p>
+                    <p class="lang-en">Names like “Note 2.md” are easy to confuse with a title you chose, so this is off unless you turn it on.</p>
+                </article>
+                <article class="feature-card">
+                    <span class="icon">🗂</span>
+                    <h3 class="lang-ja">日数と拡張子を自分で決める</h3>
+                    <h3 class="lang-en">You set the age and extensions</h3>
+                    <p class="lang-ja">空ファイルは一定日数を過ぎたものだけ。対象の拡張子も指定できます。</p>
+                    <p class="lang-en">Empty files only count once they're past a minimum age, and you choose which extensions matter.</p>
+                </article>
+                <article class="feature-card">
+                    <span class="icon">⛔</span>
+                    <h3 class="lang-ja">開いているファイルは除外</h3>
+                    <h3 class="lang-en">Skips files you're using</h3>
+                    <p class="lang-ja">今開いているファイルや <code>.icloud</code> のプレースホルダは対象から外れます。</p>
+                    <p class="lang-en">Files you currently have open and <code>.icloud</code> placeholders are skipped.</p>
+                </article>
+                <article class="feature-card">
+                    <span class="icon">📦</span>
+                    <h3 class="lang-ja">隔離フォルダは名前も範囲も変更可能</h3>
+                    <h3 class="lang-en">Quarantine folder, your name and scope</h3>
+                    <p class="lang-ja">既定は「K-Tech Trash Box」。スキャン対象・除外フォルダも指定できます。</p>
+                    <p class="lang-en">Default is “K-Tech Trash Box.” You can also set which folders to scan or skip.</p>
+                </article>
+                <article class="feature-card">
+                    <span class="icon">🌍</span>
+                    <h3 class="lang-ja">3言語のUI</h3>
+                    <h3 class="lang-en">3 UI languages</h3>
+                    <p class="lang-ja">日本語・英語・ドイツ語。アプリの言語設定に追随します。</p>
+                    <p class="lang-en">Japanese, English, and German — the plugin follows the app's language.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-light">
+        <div class="container">
+            <h2 class="section-title lang-ja">機能対象事項・非機能対象事項</h2>
+            <h2 class="section-title lang-en">In scope — and out of scope</h2>
+            <p class="section-sub lang-ja">役割をはっきりさせた、小さくて正直なツールです。</p>
+            <p class="section-sub lang-en">A small, honest tool with a clearly defined job.</p>
+
+            <div class="scope-grid">
+                <div class="scope-card fix">
+                    <h3>
+                        <span class="lang-ja">機能対象事項</span>
+                        <span class="lang-en">✓ Does</span>
+                    </h3>
+                    <ul class="lang-ja">
+                        <li>競合コピー・空ファイル・一時ファイルの検出（名前と大きさだけで判定）</li>
+                        <li>選んだ項目だけを隔離フォルダへ移動</li>
+                        <li>隔離フォルダの最終削除は、必ず確認してから（既定は削除ミスをおこさない）</li>
+                        <li>削除先はアプリの「削除したファイル」設定に従う</li>
+                    </ul>
+                    <ul class="lang-en">
+                        <li>Detect conflict copies, empty files, and temp files (by name and size only)</li>
+                        <li>Move only the items you select into a quarantine folder</li>
+                        <li>Ask for confirmation before any final delete (default is built to avoid delete mistakes)</li>
+                        <li>Follow the app's own “Deleted files” destination setting</li>
+                    </ul>
+                </div>
+                <div class="scope-card nofix">
+                    <h3>
+                        <span class="lang-ja">非機能対象事項</span>
+                        <span class="lang-en">△ Out of scope</span>
+                    </h3>
+                    <ul class="lang-ja">
+                        <li>競合コピーの中身を自動でマージ（結合）する</li>
+                        <li>iCloud / Dropbox / Syncthing などがコピーを作るのを止める</li>
+                        <li>確認なしでの自動削除</li>
+                        <li>判定の完全な正確性の保証（誤検出の可能性があります）</li>
+                    </ul>
+                    <ul class="lang-en">
+                        <li>Automatically merge the contents of conflict copies</li>
+                        <li>Stop iCloud / Dropbox / Syncthing from creating more copies</li>
+                        <li>Delete anything without asking first</li>
+                        <li>Guarantee perfectly accurate detection (false positives are possible)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="disclaimer-section">
+        <div class="container">
+            <div class="disclaimer-box">
+                <h2>
+                    <span class="lang-ja">⚠️ ご利用前に必ずお読みください</span>
+                    <span class="lang-en">⚠️ Please read before you use it</span>
+                </h2>
+                <ul class="lang-ja">
+                    <li>本ソフトウェアは<strong>現状有姿・無保証</strong>で提供されます。作者は、本ツールの利用によって生じたいかなる損害についても責任を負いません。</li>
+                    <li>検出は<strong>ファイル名と大きさだけ</strong>で判定します。誤って検出・除外する場合があります。移動・削除の前に、必ず内容をご自身で確認してください。</li>
+                    <li>移動・削除の操作は<strong>同期を通じて他の端末にも反映</strong>される場合があります。複数端末で同期している場合はご注意ください。</li>
+                    <li>最終的な判断と操作の実行は<strong>ご自身の責任</strong>です。大事な Vault は、操作前にバックアップを取ることを強く推奨します。</li>
+                    <li>CopyGuard は<strong>内容のマージはしません</strong>。競合コピーのどちらを残すかは、開いて比較してから決めてください。</li>
+                </ul>
+                <ul class="lang-en">
+                    <li>This software is provided <strong>“as is,” with no warranty</strong>. The author is not liable for any damage arising from its use.</li>
+                    <li>Detection relies <strong>only on file names and sizes</strong>. False positives and false negatives are possible. Always review the actual contents before you move or delete anything.</li>
+                    <li>Moving or deleting files <strong>can propagate to other devices through sync</strong>. Take extra care if your vault syncs across multiple devices.</li>
+                    <li>The final decision and every action are <strong>your own responsibility</strong>. We strongly recommend backing up an important vault before you start.</li>
+                    <li>CopyGuard <strong>does not merge content</strong>. Open and compare conflict copies yourself before deciding which one to keep.</li>
+                </ul>
+                <p class="license-note lang-ja">詳細は <a href="https://github.com/crossbeat461-a11y/copy-guard/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">MIT ライセンス</a> をご確認ください。</p>
+                <p class="license-note lang-en">See the <a href="https://github.com/crossbeat461-a11y/copy-guard/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">MIT License</a> for the full terms.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-light" style="background: #fff;">
+        <div class="container">
+            <h2 class="section-title lang-ja">設定</h2>
+            <h2 class="section-title lang-en">Settings</h2>
+            <p class="section-sub lang-ja">初期値のままでも使えます。必要なところだけ、あとから調整してください。</p>
+            <p class="section-sub lang-en">Works with the defaults. Adjust only what you need, whenever you need it.</p>
+
+            <div class="settings-table-wrap">
+                <table class="settings">
+                    <thead>
+                        <tr>
+                            <th><span class="lang-ja">設定</span><span class="lang-en">Setting</span></th>
+                            <th><span class="lang-ja">初期値</span><span class="lang-en">Default</span></th>
+                            <th><span class="lang-ja">説明</span><span class="lang-en">Description</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="lang-ja">隔離フォルダ（Trash Box）</span><span class="lang-en">Quarantine folder</span></td>
+                            <td><code>K-Tech Trash Box</code></td>
+                            <td><span class="lang-ja">競合コピー・空ファイル・一時ファイルの移動先</span><span class="lang-en">Where approved items are moved</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="lang-ja">スキャン / 除外フォルダ</span><span class="lang-en">Scan / excluded folders</span></td>
+                            <td><span class="lang-ja">空欄（Vault 全体）</span><span class="lang-en">Empty (whole vault)</span></td>
+                            <td><span class="lang-ja">カンマ区切りで範囲を絞れます。隔離フォルダは常に除外</span><span class="lang-en">Comma-separated. The quarantine folder is always excluded</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="lang-ja">競合コピーを検出する</span><span class="lang-en">Detect conflict copies</span></td>
+                            <td>ON</td>
+                            <td><span class="lang-ja">iCloud / Dropbox / Remotely Save / Sync / Syncthing の名前の型に対応</span><span class="lang-en">Matches iCloud / Dropbox / Remotely Save / Sync / Syncthing name patterns</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="lang-ja">番号付きの重複も含める</span><span class="lang-en">Include numbered duplicates</span></td>
+                            <td>OFF</td>
+                            <td><span class="lang-ja">「Note 2.md」なども対象にする、より広い（=リスクのある）検出</span><span class="lang-en">Also treat “Note 2.md”-style names as copies — broader, and riskier</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="lang-ja">空ファイルを検出する</span><span class="lang-en">Detect empty files</span></td>
+                            <td><span class="lang-ja">ON・7日・md</span><span class="lang-en">ON, 7 days, md</span></td>
+                            <td><span class="lang-ja">開いているファイルは対象外。日数・拡張子は変更可能</span><span class="lang-en">Open files are skipped. Age and extensions are configurable</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="lang-ja">一時・破損ファイルを検出する</span><span class="lang-en">Detect temp / corrupt files</span></td>
+                            <td><span class="lang-ja">ON・7日</span><span class="lang-en">ON, 7 days</span></td>
+                            <td><span class="lang-ja"><code>.tmp</code> / 末尾 <code>~</code> / Office ロックファイルなど。<code>.icloud</code> プレースホルダは除外</span><span class="lang-en"><code>.tmp</code>, trailing <code>~</code>, Office lock files, and similar. <code>.icloud</code> placeholders are skipped</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="lang-ja">起動時に確認する</span><span class="lang-en">Ask on startup</span></td>
+                            <td>ON</td>
+                            <td><span class="lang-ja">隔離フォルダに中身があるときだけ確認。既定は「削除ミスをおこさない」</span><span class="lang-en">Only asks if the quarantine folder has files. Default is built to avoid delete mistakes</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-light" id="install">
+        <div class="container">
+            <h2 class="section-title lang-ja">インストール方法</h2>
+            <h2 class="section-title lang-en">How to install</h2>
+            <p class="section-sub lang-ja">いまは GitHub Releases から手動でインストールします。コミュニティ掲載が完了すれば、そちらの検索からもインストールできます。</p>
+            <p class="section-sub lang-en">Install from GitHub Releases for now. Once community listing is complete, you'll also be able to search and install from there.</p>
+
+            <div class="steps">
+                <div class="step">
+                    <span class="step-num">1</span>
+                    <div>
+                        <h3 class="lang-ja">最新リリースを開く</h3>
+                        <h3 class="lang-en">Open the latest release</h3>
+                        <p class="lang-ja">GitHub の <strong>Releases</strong> から <code>main.js</code>、<code>manifest.json</code>、<code>styles.css</code> をダウンロードします。</p>
+                        <p class="lang-en">From GitHub <strong>Releases</strong>, download <code>main.js</code>, <code>manifest.json</code>, and <code>styles.css</code>.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <span class="step-num">2</span>
+                    <div>
+                        <h3 class="lang-ja">フォルダに置く</h3>
+                        <h3 class="lang-en">Put them in a folder</h3>
+                        <p class="lang-ja">Vault の <code>.obsidian/plugins/copy-guard/</code> に3ファイルを置きます（フォルダがなければ作成）。</p>
+                        <p class="lang-en">Place the three files in <code>.obsidian/plugins/copy-guard/</code> (create the folder if needed).</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <span class="step-num">3</span>
+                    <div>
+                        <h3 class="lang-ja">有効にしてスキャンする</h3>
+                        <h3 class="lang-en">Enable, then scan</h3>
+                        <p class="lang-ja">設定 → Community plugins で <strong>CopyGuard</strong> をオン。リボンの ⧉ アイコン、またはコマンド「Open CopyGuard」。</p>
+                        <p class="lang-en">Settings → Community plugins → enable <strong>CopyGuard</strong>. Click the ⧉ ribbon icon, or run Open CopyGuard.</p>
+                    </div>
+                </div>
+            </div>
+
+            <p class="note-box lang-ja">コミュニティ掲載後の検索名は <strong>CopyGuard</strong> です。ID は <code>copy-guard</code>。</p>
+            <p class="note-box lang-en">After listing, search for <strong>CopyGuard</strong>. ID: <code>copy-guard</code>.</p>
+
+            <div style="text-align: center; margin-top: 36px;">
+                <a href="https://github.com/crossbeat461-a11y/copy-guard/releases/latest" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                    <span class="lang-ja">最新リリースを開く</span>
+                    <span class="lang-en">Open latest release</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-light" id="changelog" style="background: #fff;">
+        <div class="container">
+            <h2 class="section-title lang-ja">アップデート履歴</h2>
+            <h2 class="section-title lang-en">Release history</h2>
+            <p class="section-sub lang-ja">新しいバージョンは GitHub Releases とここに追記していきます。</p>
+            <p class="section-sub lang-en">New versions are published on GitHub Releases and added here.</p>
+
+            <div class="changelog">
+                <div class="release">
+                    <span class="release-tag latest">v1.0.3</span>
+                    <div class="release-body">
+                        <span class="release-date">2026.08.29</span>
+                        <h3>
+                            <span class="lang-ja">コミュニティ審査対応・最初の安定版</span>
+                            <span class="lang-en">Community review fixes, first stable release</span>
+                        </h3>
+                        <p class="lang-ja"><code>builtin-modules</code> の置き換え、<code>getLanguage()</code> への切り替え、設定の型付き読み込み、<code>createDiv</code>/<code>createSpan</code> の利用、<code>FileManager.trashFile()</code> への変更、<code>getSettingDefinitions()</code> による設定検索対応、確認クリックの Promise 処理を修正。最終削除はアプリの「削除したファイル」設定に従います（独自のOSゴミ箱トグルは廃止）。</p>
+                        <p class="lang-en">Addressed community review notes: dropped <code>builtin-modules</code>, switched to <code>getLanguage()</code>, typed settings loading, <code>createDiv</code>/<code>createSpan</code> helpers, <code>FileManager.trashFile()</code>, settings search via <code>getSettingDefinitions()</code>, and fixed a floating Promise on the confirm click. Final delete now follows the app's own “Deleted files” setting (the separate OS-trash toggle was removed).</p>
+                    </div>
+                </div>
+                <div class="release">
+                    <span class="release-tag">v1.0.2</span>
+                    <div class="release-body">
+                        <span class="release-date">2026.08.29</span>
+                        <h3>
+                            <span class="lang-ja">設定画面の見出し調整</span>
+                            <span class="lang-en">Settings heading fix</span>
+                        </h3>
+                        <p class="lang-ja">設定画面でプラグイン名をそのまま見出しに使わないよう修正。</p>
+                        <p class="lang-en">Settings no longer use the plugin's own name as a heading.</p>
+                    </div>
+                </div>
+                <div class="release">
+                    <span class="release-tag">v1.0.1</span>
+                    <div class="release-body">
+                        <span class="release-date">2026.08.29</span>
+                        <h3>
+                            <span class="lang-ja">設定見出しの整理</span>
+                            <span class="lang-en">Settings heading cleanup</span>
+                        </h3>
+                        <p class="lang-ja">設定内の見出しに <code>Setting.setHeading()</code> を使用。</p>
+                        <p class="lang-en">Settings headings now use <code>Setting.setHeading()</code>.</p>
+                    </div>
+                </div>
+                <div class="release">
+                    <span class="release-tag">v1.0.0</span>
+                    <div class="release-body">
+                        <span class="release-date">2026.08.29</span>
+                        <h3>
+                            <span class="lang-ja">初回公開</span>
+                            <span class="lang-en">Initial release</span>
+                        </h3>
+                        <p class="lang-ja">競合コピー（英語・日本語・ドイツ語の名前、Syncthing）、空ファイル、一時ファイルの確認。選んだものだけ <code>K-Tech Trash Box</code> へ移動。削除前の確認（既定は削除ミスをおこさない）。UI は日本語・英語・ドイツ語。免責とプライバシー表示。Buy Me a Coffee（任意）。</p>
+                        <p class="lang-en">Review conflict copies (English / Japanese / German names, Syncthing), empty files, and leftover temp files. Move only what you select into <code>K-Tech Trash Box</code>. Ask before deleting (default is built to avoid delete mistakes). UI in Japanese, English, or German. Disclaimer and privacy notice in the plugin. Buy Me a Coffee (optional).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="coffee-section">
+        <div class="container">
+            <h2>
+                <span class="lang-ja">☕ 開発を応援する</span>
+                <span class="lang-en">☕ Support development</span>
+            </h2>
+            <p class="lang-ja">CopyGuard は無料・オープンソースです。役に立ったら、コーヒー1杯分の応援が今後の更新の励みになります（任意です）。</p>
+            <p class="lang-en">CopyGuard is free and open source. If it helps, a coffee keeps the updates coming (optional).</p>
+            <a href="https://buymeacoffee.com/k_tech_studio" target="_blank" rel="noopener noreferrer">
+                <img class="bmc-img" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" loading="lazy" decoding="async">
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="https://github.com/crossbeat461-a11y/copy-guard/releases/latest" target="_blank" rel="noopener noreferrer">Releases</a>
+                <a href="https://github.com/crossbeat461-a11y/copy-guard" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a href="https://github.com/crossbeat461-a11y/copy-guard/issues" target="_blank" rel="noopener noreferrer">Issues</a>
+                <a href="https://obsidian.md/plugins?id=copy-guard" target="_blank" rel="noopener noreferrer">Community plugins</a>
+                <a href="https://buymeacoffee.com/k_tech_studio" target="_blank" rel="noopener noreferrer">☕ Buy Me a Coffee</a>
+                <a href="https://k-tech-lab.vercel.app/" target="_blank" rel="noopener noreferrer">K-Tech Studio</a>
+            </div>
+            <p class="footer-copy">CopyGuard v1.0.3 · MIT · &copy; 2026 K-Tech Studio. Stay curious.</p>
+            <div class="footer-meta">
+                <button type="button" onclick="togglePolicy()" class="btn-inline-text">About this site</button>
+            </div>
+
+            <div id="policy-box">
+                <h3>About this site</h3>
+                <p style="font-size: 0.85rem;">利用者の責任において使用してください。損害について一切の責任を負いません。</p>
+                <div class="policy-content">
+                    <h4>プライバシーポリシー</h4>
+                    <p>当サイトでは、Googleによるアクセス解析ツール「Googleアナリティクス」を使用しています。Cookie で収集されるデータは匿名であり、個人を特定するものではありません。プラグイン本体は完全にローカルで動作し、テレメトリはありません。Buy Me a Coffee はクリックしたときだけブラウザで開きます。</p>
+
+                    <h4>免責事項</h4>
+                    <p>当サイトからリンクによって移動された先のサイトで提供される情報・サービスについて、一切の責任を負いません。</p>
+                    <p>掲載内容は正確な情報の提供に努めていますが、正確性や安全性を保証するものではありません。掲載内容によって生じた損害等の責任を負いかねますのでご了承ください。CopyGuard 本体の免責については、ページ内「ご利用前に必ずお読みください」もご確認ください。</p>
+
+                    <h4>お問い合わせ</h4>
+                    <p>不具合報告・機能要望は <a href="https://github.com/crossbeat461-a11y/copy-guard/issues" target="_blank" rel="noopener noreferrer">GitHub Issues</a>、または <a href="https://note.com/ktech_dev" target="_blank" rel="noopener noreferrer">note</a>・<a href="https://x.com/K_Tech_Dev" target="_blank" rel="noopener noreferrer">X</a> よりご連絡ください。</p>
+                </div>
+                <div style="text-align: center; margin-top: 40px;">
+                    <button type="button" onclick="togglePolicy()" class="policy-close">閉じる</button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelectorAll('.lang-btn').forEach((btn) => {
+            btn.addEventListener('click', () => {
+                const lang = btn.dataset.lang;
+                document.documentElement.lang = lang;
+                document.querySelectorAll('.lang-btn').forEach((b) => {
+                    b.classList.toggle('active', b === btn);
+                });
+            });
+        });
+
+        function togglePolicy() {
+            const box = document.getElementById('policy-box');
+            const show = box.style.display !== 'block';
+            box.style.display = show ? 'block' : 'none';
+            if (show) box.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
