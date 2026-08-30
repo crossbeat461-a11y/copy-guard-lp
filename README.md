@@ -1,6 +1,6 @@
 # CopyGuard — Landing Page
 
-**CopyGuard**（v1.0.3）の公式ランディングページです。
+**CopyGuard**（v1.0.4）の公式ランディングページです。
 
 - Obsidian Sync 以外（iCloud / Dropbox / Remotely Save / Syncthing）で増える競合コピー・空ファイル・一時ファイルを見つける
 - 選んだ項目だけ隔離フォルダ（既定 `K-Tech Trash Box`）へ移動し、削除は別の確認ステップ（既定は消さない）
