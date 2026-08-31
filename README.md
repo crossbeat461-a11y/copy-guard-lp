@@ -49,6 +49,7 @@ python3 -m http.server 8080
 ## リンク
 
 - プラグイン本体: https://github.com/crossbeat461-a11y/copy-guard
+- Community plugins: https://obsidian.md/plugins?id=copy-guard
 - Releases: https://github.com/crossbeat461-a11y/copy-guard/releases/latest
 - K-Tech Studio: https://k-tech-lab.vercel.app/
 - Buy Me a Coffee: https://buymeacoffee.com/k_tech_studio

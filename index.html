@@ -101,7 +101,7 @@
           "isAccessibleForFree": true,
           "license": "https://github.com/crossbeat461-a11y/copy-guard/blob/main/LICENSE",
           "downloadUrl": "https://github.com/crossbeat461-a11y/copy-guard/releases/latest",
-          "installUrl": "https://copy-guard-lp.vercel.app/#install",
+          "installUrl": "https://obsidian.md/plugins?id=copy-guard",
           "keywords": "Obsidian, sync conflict copy, conflicted copy, iCloud, Dropbox, Remotely Save, Syncthing, vault cleanup",
           "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY", "availability": "https://schema.org/InStock" },
           "author": { "@id": "https://k-tech-lab.vercel.app/#organization" }
@@ -1025,11 +1025,14 @@
             <p class="lead lang-en">CopyGuard is a tidy-up plugin for vaults synced with iCloud, Dropbox, Remotely Save, or Syncthing — the setups without Obsidian Sync's built-in conflict merging. It finds sync-conflict copies, empty files, and leftover temp files, then moves only what you approve into a quarantine folder. Deleting is a separate, confirmed step built to avoid delete mistakes. Free &amp; MIT.</p>
 
             <div class="hero-cta">
-                <a href="https://github.com/crossbeat461-a11y/copy-guard/releases/latest" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-                    <span class="lang-ja">GitHub Releases からインストールする</span>
-                    <span class="lang-en">Get it from GitHub Releases</span>
+                <a href="https://obsidian.md/plugins?id=copy-guard" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                    <span class="lang-ja">Community plugins から入れる</span>
+                    <span class="lang-en">Get it from Community plugins</span>
                 </a>
-                <a href="https://github.com/crossbeat461-a11y/copy-guard" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">GitHub</a>
+                <a href="https://github.com/crossbeat461-a11y/copy-guard/releases/latest" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                    <span class="lang-ja">GitHub Releases</span>
+                    <span class="lang-en">GitHub Releases</span>
+                </a>
                 <a href="https://buymeacoffee.com/k_tech_studio" target="_blank" rel="noopener noreferrer" class="btn btn-coffee">☕ Buy Me a Coffee</a>
             </div>
 
@@ -1207,10 +1210,10 @@
             <div class="feature-grid">
                 <article class="feature-card">
                     <span class="icon">🔍</span>
-                    <h3 class="lang-ja">同じフォルダの原本だけ対象</h3>
-                    <h3 class="lang-en">Only pairs with a nearby original</h3>
-                    <p class="lang-ja">元ファイルが同じフォルダにある場合だけ、競合コピーとみなします。</p>
-                    <p class="lang-en">A file only counts as a conflict copy when the original sits in the same folder.</p>
+                    <h3 class="lang-ja">同じフォルダで名前を見る</h3>
+                    <h3 class="lang-en">Looks at names in the same folder</h3>
+                    <p class="lang-ja">同じフォルダに原本があれば、それと対にして出します。iCloud などの型は、原本がなくても候補に出します（「同じフォルダに元ファイルなし」と表示）。番号付きの名前は、下の別設定です。</p>
+                    <p class="lang-en">If an original sits in the same folder, it is paired with that file. Usual sync-name patterns are still listed when the original is missing (labeled “no original in the same folder”). Numbered names are a separate setting below.</p>
                 </article>
                 <article class="feature-card">
                     <span class="icon">🔢</span>
@@ -1388,44 +1391,48 @@
         <div class="container">
             <h2 class="section-title lang-ja">インストール方法</h2>
             <h2 class="section-title lang-en">How to install</h2>
-            <p class="section-sub lang-ja">いまは GitHub Releases から手動でインストールします。コミュニティ掲載が完了すれば、そちらの検索からもインストールできます。</p>
-            <p class="section-sub lang-en">Install from GitHub Releases for now. Once community listing is complete, you'll also be able to search and install from there.</p>
+            <p class="section-sub lang-ja">Obsidian の Community plugins から検索して入れられます。GitHub Releases から3ファイルを置く方法もあります。</p>
+            <p class="section-sub lang-en">Search and install from Obsidian Community plugins. You can also place three files from GitHub Releases.</p>
 
             <div class="steps">
                 <div class="step">
                     <span class="step-num">1</span>
                     <div>
-                        <h3 class="lang-ja">最新リリースを開く</h3>
-                        <h3 class="lang-en">Open the latest release</h3>
-                        <p class="lang-ja">GitHub の <strong>Releases</strong> から <code>main.js</code>、<code>manifest.json</code>、<code>styles.css</code> をダウンロードします。</p>
-                        <p class="lang-en">From GitHub <strong>Releases</strong>, download <code>main.js</code>, <code>manifest.json</code>, and <code>styles.css</code>.</p>
+                        <h3 class="lang-ja">Community plugins を有効化</h3>
+                        <h3 class="lang-en">Enable Community plugins</h3>
+                        <p class="lang-ja">Obsidian → 設定 → Community plugins →「Turn on community plugins」</p>
+                        <p class="lang-en">Obsidian → Settings → Community plugins → Turn on community plugins</p>
                     </div>
                 </div>
                 <div class="step">
                     <span class="step-num">2</span>
                     <div>
-                        <h3 class="lang-ja">フォルダに置く</h3>
-                        <h3 class="lang-en">Put them in a folder</h3>
-                        <p class="lang-ja">Vault の <code>.obsidian/plugins/copy-guard/</code> に3ファイルを置きます（フォルダがなければ作成）。</p>
-                        <p class="lang-en">Place the three files in <code>.obsidian/plugins/copy-guard/</code> (create the folder if needed).</p>
+                        <h3 class="lang-ja">CopyGuard を検索してインストール</h3>
+                        <h3 class="lang-en">Browse and install CopyGuard</h3>
+                        <p class="lang-ja">Browse →「CopyGuard」で検索 → Install → Enable。ID は <code>copy-guard</code>。</p>
+                        <p class="lang-en">Browse → search <code>CopyGuard</code> → Install → Enable. ID: <code>copy-guard</code>.</p>
                     </div>
                 </div>
                 <div class="step">
                     <span class="step-num">3</span>
                     <div>
-                        <h3 class="lang-ja">有効にしてスキャンする</h3>
-                        <h3 class="lang-en">Enable, then scan</h3>
-                        <p class="lang-ja">設定 → Community plugins で <strong>CopyGuard</strong> をオン。リボンの ⧉ アイコン、またはコマンド「Open CopyGuard」。</p>
-                        <p class="lang-en">Settings → Community plugins → enable <strong>CopyGuard</strong>. Click the ⧉ ribbon icon, or run Open CopyGuard.</p>
+                        <h3 class="lang-ja">スキャンする</h3>
+                        <h3 class="lang-en">Scan</h3>
+                        <p class="lang-ja">リボンの ⧉ アイコン、またはコマンド「Open CopyGuard」。</p>
+                        <p class="lang-en">Click the ⧉ ribbon icon, or run Open CopyGuard.</p>
                     </div>
                 </div>
             </div>
 
-            <p class="note-box lang-ja">コミュニティ掲載後の検索名は <strong>CopyGuard</strong> です。ID は <code>copy-guard</code>。</p>
-            <p class="note-box lang-en">After listing, search for <strong>CopyGuard</strong>. ID: <code>copy-guard</code>.</p>
+            <p class="note-box lang-ja">手動で置く場合は、GitHub の <strong>Releases</strong> から <code>main.js</code>、<code>manifest.json</code>、<code>styles.css</code> を <code>.obsidian/plugins/copy-guard/</code> へ入れてください。</p>
+            <p class="note-box lang-en">To install by hand, download <code>main.js</code>, <code>manifest.json</code>, and <code>styles.css</code> from GitHub <strong>Releases</strong> into <code>.obsidian/plugins/copy-guard/</code>.</p>
 
             <div style="text-align: center; margin-top: 36px;">
-                <a href="https://github.com/crossbeat461-a11y/copy-guard/releases/latest" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                <a href="https://obsidian.md/plugins?id=copy-guard" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                    <span class="lang-ja">Community plugins を開く</span>
+                    <span class="lang-en">Open Community plugins</span>
+                </a>
+                <a href="https://github.com/crossbeat461-a11y/copy-guard/releases/latest" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="margin-left: 12px;">
                     <span class="lang-ja">最新リリースを開く</span>
                     <span class="lang-en">Open latest release</span>
                 </a>
