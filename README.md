@@ -28,7 +28,7 @@ python3 -m http.server 8080
 |------|-----|
 | GitHub リポジトリ | https://github.com/crossbeat461-a11y/copy-guard-lp |
 | Vercel | https://copy-guard-lp.vercel.app/ |
-| GA4 測定 ID | `G-774DT6CW0W`（他 LP と共有） |
+| GA4 測定 ID | `G-SCCSLDV8T8`（CopyGuard LP 専用。会社HPの `G-774DT6CW0W` は使わない） |
 | Search Console 確認ファイル | `google8a8913465dda62dd.html`（他 LP と同一トークン） |
 
 ## OG 画像
