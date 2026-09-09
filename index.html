@@ -39,7 +39,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CopyGuard v1.1.0 | 競合コピーとクラッシュ後の一時ファイルを、確認してから片づける Obsidian プラグイン</title>
+    <title>CopyGuard v1.1.1 | 競合コピーとクラッシュ後の一時ファイルを、確認してから片づける Obsidian プラグイン</title>
     <meta name="description" content="CopyGuard は Obsidian 用の整理プラグイン。iCloud・Dropbox・Remotely Save・Syncthing など Obsidian Sync 以外の同期で増える競合コピー・空ファイル・一時ファイルを見つけ、選んだものだけ隔離フォルダへ移します。削除は別の確認ステップ、既定は削除ミスをおこさない。無料・MIT。">
     <meta name="robots" content="index, follow, max-image-preview:large">
     <meta name="author" content="K-Tech Studio">
@@ -51,7 +51,7 @@
     <link rel="sitemap" type="application/xml" href="https://copy-guard-lp.vercel.app/sitemap.xml">
     <meta property="og:site_name" content="K-Tech Studio">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="CopyGuard v1.1.0 | Review sync clutter, then clean it up yourself">
+    <meta property="og:title" content="CopyGuard v1.1.1 | Review sync clutter, then clean it up yourself">
     <meta property="og:description" content="Finds sync-conflict copies, empty files, and leftover temp files from iCloud / Dropbox / Remotely Save / Syncthing. Moves only what you approve. Deleting is a separate, confirmed step built to avoid delete mistakes.">
     <meta property="og:url" content="https://copy-guard-lp.vercel.app/">
     <meta property="og:image" content="https://copy-guard-lp.vercel.app/og.svg">
@@ -63,7 +63,7 @@
     <meta property="og:locale:alternate" content="en_US">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@K_Tech_Dev">
-    <meta name="twitter:title" content="CopyGuard v1.1.0 | Review sync clutter, then clean it up yourself">
+    <meta name="twitter:title" content="CopyGuard v1.1.1 | Review sync clutter, then clean it up yourself">
     <meta name="twitter:description" content="Finds sync-conflict copies, empty files, and temp files from iCloud / Dropbox / Remotely Save / Syncthing. You review, then decide. Free &amp; MIT.">
     <meta name="twitter:image" content="https://copy-guard-lp.vercel.app/og.svg">
     <meta name="twitter:image:alt" content="CopyGuard — Review sync clutter, then clean it up yourself.">
@@ -95,7 +95,7 @@
           "description": "Obsidian plugin that finds sync-conflict copies, empty files, and leftover temp files from non-Sync backends (iCloud, Dropbox, Remotely Save, Syncthing), then moves only approved items into a quarantine folder before an optional, confirmed delete.",
           "applicationCategory": "UtilitiesApplication",
           "operatingSystem": "Obsidian",
-          "softwareVersion": "1.1.0",
+          "softwareVersion": "1.1.1",
           "datePublished": "2026-08-29",
           "dateModified": "2026-08-31",
           "isAccessibleForFree": true,
@@ -1008,7 +1008,7 @@
         <div class="container">
             <div class="plugin-badge-row">
                 <span class="badge badge-obsidian">K-Tech Studio</span>
-                <span class="badge badge-version" id="version-badge">v1.1.0</span>
+                <span class="badge badge-version" id="version-badge">v1.1.1</span>
                 <span class="badge badge-guard">
                     <span class="lang-ja">確認してから削除</span>
                     <span class="lang-en">Review, then delete</span>
@@ -1449,7 +1449,19 @@
 
             <div class="changelog">
                 <div class="release">
-                    <span class="release-tag latest">v1.1.0</span>
+                    <span class="release-tag latest">v1.1.1</span>
+                    <div class="release-body">
+                        <span class="release-date">2026.09.09</span>
+                        <h3>
+                            <span class="lang-ja">Proton Drive・公式 Sync の -conflict-・同じ内容の表示</span>
+                            <span class="lang-en">Proton Drive, Sync -conflict- names, same-content badge</span>
+                        </h3>
+                        <p class="lang-ja">Proton Drive の <code>(# Edit conflict)</code> / <code>(# Name clash)</code>、公式 Sync の <code>Note-conflict-YYYY-MM-DD</code> を検出。同じフォルダに元があるとき、中身が同じなら一覧に出す。マージはしません。</p>
+                        <p class="lang-en">Detects Proton Drive <code>(# Edit conflict)</code> / <code>(# Name clash)</code> names and official Sync <code>Note-conflict-YYYY-MM-DD</code> files. When the original is in the same folder, a badge shows if the copy has the same bytes. Still does not merge.</p>
+                    </div>
+                </div>
+                <div class="release">
+                    <span class="release-tag">v1.1.0</span>
                     <div class="release-body">
                         <span class="release-date">2026.08.31</span>
                         <h3>
@@ -1548,7 +1560,7 @@
                 <a href="https://buymeacoffee.com/k_tech_studio" target="_blank" rel="noopener noreferrer">☕ Buy Me a Coffee</a>
                 <a href="https://k-tech-lab.vercel.app/" target="_blank" rel="noopener noreferrer">K-Tech Studio</a>
             </div>
-            <p class="footer-copy">CopyGuard v1.1.0 · MIT · &copy; 2026 K-Tech Studio. Stay curious.</p>
+            <p class="footer-copy">CopyGuard v1.1.1 · MIT · &copy; 2026 K-Tech Studio. Stay curious.</p>
             <div class="footer-meta">
                 <button type="button" onclick="togglePolicy()" class="btn-inline-text">About this site</button>
             </div>
