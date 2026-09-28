@@ -39,7 +39,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CopyGuard v1.2.0 | 競合コピーとクラッシュ後の一時ファイルを、確認してから片づける Obsidian プラグイン</title>
+    <title>CopyGuard v1.3.0 | 競合コピーとクラッシュ後の一時ファイルを、確認してから片づける Obsidian プラグイン</title>
     <meta name="description" content="CopyGuard は Obsidian 用の整理プラグイン。iCloud・Dropbox・Remotely Save・Syncthing など Obsidian Sync 以外の同期で増える競合コピー・空ファイル・一時ファイルを見つけ、選んだものだけ隔離フォルダへ移します。削除は別の確認ステップ、既定は削除ミスをおこさない。無料・MIT。">
     <meta name="robots" content="index, follow, max-image-preview:large">
     <meta name="author" content="K-Tech Studio">
@@ -51,7 +51,7 @@
     <link rel="sitemap" type="application/xml" href="https://copy-guard-lp.vercel.app/sitemap.xml">
     <meta property="og:site_name" content="K-Tech Studio">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="CopyGuard v1.2.0 | Review sync clutter, then clean it up yourself">
+    <meta property="og:title" content="CopyGuard v1.3.0 | Review sync clutter, then clean it up yourself">
     <meta property="og:description" content="Finds sync-conflict copies, empty files, and leftover temp files from iCloud / Dropbox / Remotely Save / Syncthing. Moves only what you approve. Deleting is a separate, confirmed step built to avoid delete mistakes.">
     <meta property="og:url" content="https://copy-guard-lp.vercel.app/">
     <meta property="og:image" content="https://copy-guard-lp.vercel.app/og.svg">
@@ -63,7 +63,7 @@
     <meta property="og:locale:alternate" content="en_US">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@K_Tech_Dev">
-    <meta name="twitter:title" content="CopyGuard v1.2.0 | Review sync clutter, then clean it up yourself">
+    <meta name="twitter:title" content="CopyGuard v1.3.0 | Review sync clutter, then clean it up yourself">
     <meta name="twitter:description" content="Finds sync-conflict copies, empty files, and temp files from iCloud / Dropbox / Remotely Save / Syncthing. You review, then decide. Free &amp; MIT.">
     <meta name="twitter:image" content="https://copy-guard-lp.vercel.app/og.svg">
     <meta name="twitter:image:alt" content="CopyGuard — Review sync clutter, then clean it up yourself.">
@@ -95,7 +95,7 @@
           "description": "Obsidian plugin that finds sync-conflict copies, empty files, and leftover temp files from non-Sync backends (iCloud, Dropbox, Remotely Save, Syncthing), then moves only approved items into a quarantine folder before an optional, confirmed delete.",
           "applicationCategory": "UtilitiesApplication",
           "operatingSystem": "Obsidian",
-          "softwareVersion": "1.2.0",
+          "softwareVersion": "1.3.0",
           "datePublished": "2026-08-29",
           "dateModified": "2026-09-20",
           "isAccessibleForFree": true,
@@ -1008,7 +1008,7 @@
         <div class="container">
             <div class="plugin-badge-row">
                 <span class="badge badge-obsidian">K-Tech Studio</span>
-                <span class="badge badge-version" id="version-badge">v1.2.0</span>
+                <span class="badge badge-version" id="version-badge">v1.3.0</span>
                 <span class="badge badge-guard">
                     <span class="lang-ja">確認してから削除</span>
                     <span class="lang-en">Review, then delete</span>
@@ -1313,17 +1313,17 @@
                 </h2>
                 <ul class="lang-ja">
                     <li>本ソフトウェアは<strong>現状有姿・無保証</strong>で提供されます。作者は、本ツールの利用によって生じたいかなる損害についても責任を負いません。</li>
-                    <li>検出は<strong>ファイル名と大きさだけ</strong>で判定します。誤って検出・除外する場合があります。移動・削除の前に、必ず内容をご自身で確認してください。</li>
+                    <li>検出は<strong>ファイル名と大きさ</strong>、元があるときは<strong>中身の比較</strong>で判定します。誤って検出・除外する場合があります。移動・削除の前に、必ず内容をご自身で確認してください。</li>
                     <li>移動・削除の操作は<strong>同期を通じて他の端末にも反映</strong>される場合があります。複数端末で同期している場合はご注意ください。</li>
                     <li>最終的な判断と操作の実行は<strong>ご自身の責任</strong>です。大事な Vault は、操作前にバックアップを取ることを強く推奨します。</li>
-                    <li>CopyGuard は<strong>内容のマージはしません</strong>。競合コピーのどちらを残すかは、開いて比較してから決めてください。</li>
+                    <li>CopyGuard は<strong>内容のマージはしません</strong>。元がある行は確認できます。中身が同じなら「名前だけ」です。</li>
                 </ul>
                 <ul class="lang-en">
                     <li>This software is provided <strong>“as is,” with no warranty</strong>. The author is not liable for any damage arising from its use.</li>
-                    <li>Detection relies <strong>only on file names and sizes</strong>. False positives and false negatives are possible. Always review the actual contents before you move or delete anything.</li>
+                    <li>Detection uses <strong>names, size, and a byte comparison when the original is in the same folder</strong>. False positives and false negatives are possible. Always review the actual contents before you move or delete anything.</li>
                     <li>Moving or deleting files <strong>can propagate to other devices through sync</strong>. Take extra care if your vault syncs across multiple devices.</li>
                     <li>The final decision and every action are <strong>your own responsibility</strong>. We strongly recommend backing up an important vault before you start.</li>
-                    <li>CopyGuard <strong>does not merge content</strong>. Open and compare conflict copies yourself before deciding which one to keep.</li>
+                    <li>CopyGuard <strong>does not merge content</strong>. Compare each row with the original. Matching bytes show as name-only.</li>
                 </ul>
                 <p class="license-note lang-ja">詳細は <a href="https://github.com/crossbeat461-a11y/copy-guard/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">MIT ライセンス</a> をご確認ください。</p>
                 <p class="license-note lang-en">See the <a href="https://github.com/crossbeat461-a11y/copy-guard/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">MIT License</a> for the full terms.</p>
@@ -1451,7 +1451,19 @@
 
             <div class="changelog">
                 <div class="release">
-                    <span class="release-tag latest">v1.2.0</span>
+                    <span class="release-tag latest">v1.3.0</span>
+                    <div class="release-body">
+                        <span class="release-date">2026.09.28</span>
+                        <h3>
+                            <span class="lang-ja">確認と、Trash Box から元の場所へ戻す</span>
+                            <span class="lang-en">Compare copies, restore from Trash Box</span>
+                        </h3>
+                        <p class="lang-ja">元がある行は確認できます。中身が同じなら「名前だけ」。Trash Box から、索引のあるファイルを元の場所へ戻します。埋まっていれば上書きしません。1.3.0より前の隔離は元の場所へ戻せません。番号付き重複は既定オフのままです。マージはしません。</p>
+                        <p class="lang-en">Compare each row with the original. Matching bytes show as name-only. Restore indexed files from the Trash Box to the original path. Occupied paths fail without overwrite. Files quarantined before 1.3.0 cannot restore to the original path. Numbered duplicates stay off. Still does not merge.</p>
+                    </div>
+                </div>
+                <div class="release">
+                    <span class="release-tag">v1.2.0</span>
                     <div class="release-body">
                         <span class="release-date">2026.09.20</span>
                         <h3>
@@ -1574,7 +1586,7 @@
                 <a href="https://buymeacoffee.com/k_tech_studio" target="_blank" rel="noopener noreferrer">☕ Buy Me a Coffee</a>
                 <a href="https://k-tech-lab.vercel.app/" target="_blank" rel="noopener noreferrer">K-Tech Studio</a>
             </div>
-            <p class="footer-copy">CopyGuard v1.2.0 · MIT · &copy; 2026 K-Tech Studio. Stay curious.</p>
+            <p class="footer-copy">CopyGuard v1.3.0 · MIT · &copy; 2026 K-Tech Studio. Stay curious.</p>
             <div class="footer-meta">
                 <button type="button" onclick="togglePolicy()" class="btn-inline-text">About this site</button>
             </div>
